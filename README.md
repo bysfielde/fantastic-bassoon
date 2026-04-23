@@ -10,7 +10,7 @@ The game window and UI are built using the PyQt6 library so prior to running the
 pip install PyQt6 PyQt6-WebEngine
 
 HOW TO PLAY
-The easiest way currently is to download the wiki_race.py file and copy its direct download path. Then in your terminal you can execute the file using python3. 
+The easiest way currently is to download the hub_embeddings.npz and the wiki_race.py file and copy its direct download path. Then in your terminal you can execute the file using python3. 
 
 EXTERNAL SOURCES
-The code for the GUI was written by prompting Anthropic's Claude Sonnet 4.6 model. Many of the gameplay elements were also created with the help of prompts to the same generative AI model, especially the currently commented out bidirectional BFS.
+The code for the GUI was written by prompting Anthropic's Claude Sonnet 4.6 model. Many of the gameplay elements were also created with the help of prompts to the same generative AI model, especially the currently commented out bidirectional BFS. Natural language processing is done using SentenceTransformers library using their sentence-transformers/all-MiniLM-L6-v2 model
