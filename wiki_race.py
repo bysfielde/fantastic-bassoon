@@ -21,9 +21,46 @@ from PyQt6.QtWebEngineCore import QWebEnginePage, QWebEngineProfile, QWebEngineS
 from PyQt6.QtCore import QUrl, Qt, QTimer, pyqtSignal, QObject, QThread
 from PyQt6.QtGui import QFont, QColor, QPalette, QIcon
 import urllib.parse
+from sentence_transformers import SentenceTransformer, SimilarityFunction
+import numpy as np
 
+# Semantic Textual Similarity
+WIKI_API = "https://en.wikipedia.org/w/api.php"
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+hubData = np.load("hub_embeddings.npz")
 
-
+def get_article_text(title):
+    params = urllib.parse.urlencode({
+        "action": "query",
+        "format": "json",
+        "titles": title,
+        "prop": "extracts",
+        "explaintext": 1,
+        "exintro": 1
+    })
+    req = urllib.request.Request(
+        f"{WIKI_API}?{params}",
+        headers={"User-Agent": "WikiRaceGame/1.0"}
+    )
+    data = json.loads(urllib.request.urlopen(req).read())
+    pages = data.get("query", {}).get("pages", {})
+    for page in pages.values():
+        return page.get("extract", None)
+    return None
+def best_hub(title):
+    text = get_article_text(title)
+    data = list(zip(hubData["titles"].tolist(), hubData["matrix"]))
+    closeHub = ""
+    closest = 0.0
+    if text:
+        embedding = model.encode(text)
+        # Calculates cosine similarity of article with each hub
+        for t, m in data:
+            s = model.similarity(embedding, m).numpy()[0, 0]
+            if s > closest:
+                closest = s
+                closeHub = t
+    return closeHub
 # ─── Bidirectional BFS Solver ─────────────────────────────────────────────────
 #
 # WIKI_API = "https://en.wikipedia.org/w/api.php"
