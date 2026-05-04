@@ -8,6 +8,7 @@ A single player (possibly using a client and server) version of "Wikipedia Races
 REQUIRED Dependencies
 The game window and UI are built using the PyQt6 library so prior to running the following will need to be executed in your terminal:
 pip install PyQt6 PyQt6-WebEngine
+pip install sentence_transformers
 
 HOW TO PLAY
 The easiest way currently is to download the hub_embeddings.npz and the wiki_race.py file and copy its direct download path. Then in your terminal you can execute the file using python3. 
