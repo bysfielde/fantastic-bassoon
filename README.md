@@ -12,7 +12,11 @@ pip install sentence_transformers
 pip install numpy
 
 HOW TO PLAY
-The easiest way currently is to download the hub_embeddings.npz,wiki_graph.pkl, and the wiki_race.py file and copy its direct download path. Then in your terminal you can execute the file using python3. 
+The easiest way currently is to download the hub_embeddings.npz, and the wiki_race.py file and copy its direct download path. You must also go to https://danker.s3.amazonaws.com/index.html and download the most recent allwiki.links.rank.bz2 file (~700MB compressed, ~2GB decompressed), 
+Decompress: bunzip2 2024-09-01.allwiki.links.rank.bz2,
+Run: python3 build_graph.py 2024-09-01.allwiki.links.rank
+This produces wiki_graph.pkl (~3GB) after 2-5 minutes. The .bz2 and decompressed .rank file can be deleted afterwards. 
+Finally in your terminal you can execute the file using python3. 
 
 EXTERNAL SOURCES
 The code for the GUI was written by prompting Anthropic's Claude Sonnet 4.6 model. Many of the gameplay elements were also created with the help of prompts to the same generative AI model, especially the currently commented out bidirectional BFS. Natural language processing is done using SentenceTransformers library using their sentence-transformers/all-MiniLM-L6-v2 model
